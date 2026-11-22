@@ -1,0 +1,53 @@
+name: Update official ETF shares and deploy Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # 21:30 and 23:30 Asia/Shanghai
+    - cron: '30 13,15 * * *'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: etf-pages
+  cancel-in-progress: false
+jobs:
+  update-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read official SSE data
+        id: update
+        continue-on-error: true
+        run: python update.py
+      - name: Save data history
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data.json index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update official 510300 shares'
+            git push
+          fi
+      - name: Build website
+        run: python build_site.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - uses: actions/deploy-pages@v4
+        id: deployment
+      - name: Report fetch failure after publishing preserved data
+        if: steps.update.outcome == 'failure'
+        run: |
+          echo 'SSE refresh failed for one or more dates. Previous data has been preserved.'
+          exit 1
