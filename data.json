@@ -1709,7 +1709,52 @@
       "checked_at": "2026-11-23T04:26:16.869099+08:00"
     }
   ],
-  "errors": [],
+  "errors": [
+    {
+      "date": "2026-11-13",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-14",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-15",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-16",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-17",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-18",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-19",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-20",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-21",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-22",
+      "error": "HTTPError"
+    },
+    {
+      "date": "2026-11-23",
+      "error": "HTTPError"
+    }
+  ],
   "days_without_record": [
     "2026-01-01",
     "2026-01-02",
@@ -2156,5 +2201,5 @@
     "2026-11-23"
   ],
   "last_success_at": "2026-11-23T04:26:20.599102+08:00",
-  "last_attempt_at": "2026-11-23T04:26:20.899280+08:00"
+  "last_attempt_at": "2026-11-23T23:05:10.815162+08:00"
 }
